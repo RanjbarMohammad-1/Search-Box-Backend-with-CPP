@@ -52,9 +52,13 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = main.cpp \
+SOURCES       = SearchBoxBackend.cpp \
+		SearchResult.cpp \
+		main.cpp \
 		mainwindow.cpp moc_mainwindow.cpp
-OBJECTS       = main.o \
+OBJECTS       = SearchBoxBackend.o \
+		SearchResult.o \
+		main.o \
 		mainwindow.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -149,7 +153,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		untitled.pro mainwindow.h main.cpp \
+		untitled.pro SearchBoxBackend.h \
+		SearchResult.h \
+		mainwindow.h SearchBoxBackend.cpp \
+		SearchResult.cpp \
+		main.cpp \
 		mainwindow.cpp
 QMAKE_TARGET  = untitled
 DESTDIR       = 
@@ -364,8 +372,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents SearchBoxBackend.h SearchResult.h mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents SearchBoxBackend.cpp SearchResult.cpp main.cpp mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui mainwindow.ui $(DISTDIR)/
 
 
@@ -431,7 +439,14 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: main.cpp mainwindow.h
+SearchBoxBackend.o: SearchBoxBackend.cpp SearchBoxBackend.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SearchBoxBackend.o SearchBoxBackend.cpp
+
+SearchResult.o: SearchResult.cpp SearchResult.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SearchResult.o SearchResult.cpp
+
+main.o: main.cpp mainwindow.h \
+		SearchBoxBackend.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \

@@ -4,8 +4,14 @@
 
 class SearchBoxBackend
 {
+private:
+   void readShapeFile();
+
+
 public:
     SearchBoxBackend();
+    void run();
+
 };
 
 #endif // SEARCHBOXBACKEND_H
