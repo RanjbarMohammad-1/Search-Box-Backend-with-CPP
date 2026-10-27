@@ -7,8 +7,7 @@
 class SearchBoxBackend
 {
 private:
-    void readShapeFile();
-    bool readShapeFile1();
+    bool readShapeFile();
     bool findSearchText(const QString &searchText);
 
     QgsVectorLayer *m_layer = nullptr;
